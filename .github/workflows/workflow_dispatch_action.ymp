@@ -1,0 +1,48 @@
+name: release-action
+
+# ✅ Replace release trigger with manual trigger
+on:
+  workflow_dispatch:
+    inputs:
+      solution_name:
+        description: "Solution name"
+        required: true
+        default: "Agent1Solution"
+
+      build_environment_url:
+        description: "Build (DEV/QA) environment URL"
+        required: true
+        default: "https://orgcc787891.crm.dynamics.com"
+
+      production_environment_url:
+        description: "Production environment URL"
+        required: true
+        default: "https://org4be935c8.crm.dynamics.com"
+
+      client_id:
+        description: "Azure Client ID"
+        required: true
+        default: "4cf7b7db-7a60-4b6b-9b26-0b56daec2a2a"
+
+      tenant_id:
+        description: "Azure Tenant ID"
+        required: true
+        default: "d51cb5af-080c-49c2-8bba-c288fca20773"
+
+permissions:
+  contents: write
+
+jobs:
+  release-solution:
+    uses: ./.github/workflows/release-solution-to-prod-with-inputs.yml
+
+    with:
+      solution_name: ${{ github.event.inputs.solution_name }}
+      BUILD_ENVIRONMENT_URL: ${{ github.event.inputs.build_environment_url }}
+      PRODUCTION_ENVIRONMENT_URL: ${{ github.event.inputs.production_environment_url }}
+      CLIENT_ID: ${{ github.event.inputs.client_id }}
+      TENANT_ID: ${{ github.event.inputs.tenant_id }}
+
+    secrets:
+      envSecret: ${{ secrets.AZURE_ALM_DEMOS_DEV_CLIENT_SECRET }}
+``
