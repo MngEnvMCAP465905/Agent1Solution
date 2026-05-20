@@ -1,6 +1,5 @@
-name: release-action
+name: workflow_dispatch_action
 
-# ✅ Replace release trigger with manual trigger
 on:
   workflow_dispatch:
     inputs:
@@ -45,4 +44,3 @@ jobs:
 
     secrets:
       envSecret: ${{ secrets.AZURE_ALM_DEMOS_DEV_CLIENT_SECRET }}
-``
