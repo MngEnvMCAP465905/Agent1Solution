@@ -51,7 +51,6 @@ jobs:
         client-secret: ${{ env.CLIENT_SECRET }}
         tenant-id: ${{env.TENANT_ID}}
 
-
     - name: export-solution action
       uses: microsoft/powerplatform-actions/export-solution@v0
       with:
