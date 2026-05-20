@@ -16,7 +16,7 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  export-and-branch:
+  export-from-dev-and-branch:
     runs-on: windows-latest
 
     env:
