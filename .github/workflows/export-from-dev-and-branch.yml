@@ -78,7 +78,7 @@ jobs:
       - name: Branch solution
         uses: microsoft/powerplatform-actions/branch-solution@v1
         with:
-          solution-folder: src/${{ env.SOLUTION_NAME }}
-          solution-target-folder: src/${{ env.SOLUTION_NAME }}
+          solution-folder: src
+          solution-target-folder: src
           repo-token: ${{ secrets.GITHUB_TOKEN }}
           allow-empty-commit: true
