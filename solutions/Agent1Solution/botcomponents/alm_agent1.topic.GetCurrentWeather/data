@@ -29,11 +29,20 @@ beginDialog:
       prompt: For which city do you wish to get the current weather?
       entity: CityPrebuiltEntity
 
+    - kind: Question
+      id: question_KClgoT
+      interruptionPolicy:
+        allowInterruption: true
+
+      variable: init:Topic.VarState
+      prompt: For which state do you wish to get the current weather?
+      entity: StatePrebuiltEntity
+
     - kind: BeginDialog
       id: Z2P8OL
       input:
         binding:
-          Location: =Topic.VarCity
+          Location: =Concatenate(Topic.VarCity, ", ", Topic.VarState)
 
       dialog: alm_agent1.topic.MSNWeatherGetcurrentweather
       output:

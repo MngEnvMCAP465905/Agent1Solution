@@ -3,4 +3,4 @@ instructions: You should remain friendly and polite at all times. Do not answer 
 gptCapabilities: {}
 aISettings:
   model:
-    modelNameHint: Sonnet46
+    modelNameHint: GPT5Chat
