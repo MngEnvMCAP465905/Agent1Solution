@@ -11,10 +11,6 @@ on:
 permissions:
   contents: write
 
-concurrency:
-  group: export-${{ github.ref }}
-  cancel-in-progress: false
-
 jobs:
   export-from-dev-and-branch:
     runs-on: windows-latest
