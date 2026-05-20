@@ -1,0 +1,45 @@
+name: release-to-production
+
+on:
+  workflow_dispatch:
+    inputs:
+      solution-name:
+        required: true
+        default: Agent1Solution
+permissions:
+  contents: write
+  
+jobs:
+  release-to-prod:
+    runs-on: windows-latest
+    env:
+      RUNNER_DEBUG: 1
+
+    steps:
+    - uses: actions/checkout@v4
+      with:
+        lfs: true
+        
+    - name: Install Power Platform tools
+      uses: microsoft/powerplatform-actions/actions-install@v1
+      
+    - name: Run Power Platform WhoAmI 
+      uses: microsoft/powerplatform-actions/who-am-i@v1
+      with:
+        environment-url: ${{ vars.PROD_ENVIRONMENT_URL }}
+        app-id: ${{ secrets.CLIENT_ID }}
+        client-secret: ${{ secrets.CLIENT_SECRET }}
+        tenant-id: ${{ secrets.TENANT_ID }}
+   
+    - name: Import solution to destination en
+      uses: microsoft/powerplatform-actions/import-solution@v1
+      with:
+        environment-url: ${{ vars.PROD_ENVIRONMENT_URL }}
+        app-id: ${{ secrets.CLIENT_ID }}
+        client-secret: ${{ secrets.CLIENT_SECRET }}
+        tenant-id: ${{ secrets.TENANT_ID }}
+        solution-file: ${{ inputs.solution-name }}_managed.zip
+        use-deployment-settings-file: true
+        deployment-settings-file: ./Settings/SampleSolutionSettingsProd.json
+        force-overwrite: true
+        publish-changes: true
