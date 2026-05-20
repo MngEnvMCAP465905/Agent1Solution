@@ -66,19 +66,19 @@ jobs:
         uses: microsoft/powerplatform-actions/unpack-solution@v1
         with:
           solution-file: out/exported/${{ env.SOLUTION_NAME }}.zip
-          solution-folder: src
+          solution-folder: ${{ env.SOLUTION_NAME }}/src
           solution-type: Unmanaged
           overwrite-files: true
 
       - name: Copy ZIPs to artifacts folder
         run: |
-          mkdir artifacts -Force
-          copy out/exported\*.zip artifacts\
+          mkdir "${{ env.SOLUTION_NAME }}\artifacts" -Force
+          copy out\exported\*.zip "${{ env.SOLUTION_NAME }}\artifacts\"
 
       - name: Branch solution
         uses: microsoft/powerplatform-actions/branch-solution@v1
         with:
-          solution-folder: src
-          solution-target-folder: src
+          solution-folder: ${{ env.SOLUTION_NAME }}
+          solution-target-folder: ${{ env.SOLUTION_NAME }}
           repo-token: ${{ secrets.GITHUB_TOKEN }}
           allow-empty-commit: true
