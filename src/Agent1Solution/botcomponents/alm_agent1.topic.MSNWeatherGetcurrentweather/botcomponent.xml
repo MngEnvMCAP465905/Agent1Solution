@@ -1,0 +1,10 @@
+<botcomponent schemaname="alm_agent1.topic.MSNWeatherGetcurrentweather">
+  <componenttype>9</componenttype>
+  <iscustomizable>0</iscustomizable>
+  <name>MSN Weather - Get current weather</name>
+  <parentbotid>
+    <schemaname>alm_agent1</schemaname>
+  </parentbotid>
+  <statecode>0</statecode>
+  <statuscode>1</statuscode>
+</botcomponent>
