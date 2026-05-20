@@ -75,8 +75,8 @@ jobs:
 
       - name: Copy ZIPs into solution folder
         run: |
-          mkdir "${{ env.SOLUTION_PATH }}\\${{ env.SOLUTION_NAME }}\\artifacts" -Force
-          copy "${{ env.EXPORT_PATH }}\\*.zip" "${{ env.SOLUTION_PATH }}\\${{ env.SOLUTION_NAME }}\\artifacts\\"
+          mkdir "${{ env.SOLUTION_PATH }}\\artifacts" -Force
+          copy "${{ env.EXPORT_PATH }}\\*.zip" "${{ env.SOLUTION_PATH }}\\artifacts\\"
 
       - name: Branch solution
         uses: microsoft/powerplatform-actions/branch-solution@v1
