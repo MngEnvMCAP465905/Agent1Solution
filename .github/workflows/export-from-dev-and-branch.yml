@@ -17,9 +17,6 @@ jobs:
 
     env:
       SOLUTION_NAME: ${{ inputs.solution-name }}
-      EXPORT_PATH: out/exported
-      SOLUTION_PATH: out/solutions
-      TARGET_PATH: solutions
       ENVIRONMENT_URL: ${{ secrets.POWER_PLATFORM_ALM_DEMOS_DEV_ENVIRONMENT_URL }}
       CLIENT_ID: ${{ secrets.AZURE_ALM_DEMOS_DEV_CLIENT_ID }}
       CLIENT_SECRET: ${{ secrets.AZURE_ALM_DEMOS_DEV_CLIENT_SECRET }}
@@ -34,7 +31,7 @@ jobs:
       - name: Install Power Platform Tools
         uses: microsoft/powerplatform-actions/actions-install@v1
 
-      - name: Validate connection (WhoAmI)
+      - name: Validate connection
         uses: microsoft/powerplatform-actions/who-am-i@v1
         with:
           environment-url: ${{ env.ENVIRONMENT_URL }}
@@ -50,7 +47,7 @@ jobs:
           client-secret: ${{ env.CLIENT_SECRET }}
           tenant-id: ${{ env.TENANT_ID }}
           solution-name: ${{ env.SOLUTION_NAME }}
-          solution-output-file: ${{ env.EXPORT_PATH }}/${{ env.SOLUTION_NAME }}_managed.zip
+          solution-output-file: out/exported/${{ env.SOLUTION_NAME }}_managed.zip
           managed: true
           overwrite: true
 
@@ -62,26 +59,26 @@ jobs:
           client-secret: ${{ env.CLIENT_SECRET }}
           tenant-id: ${{ env.TENANT_ID }}
           solution-name: ${{ env.SOLUTION_NAME }}
-          solution-output-file: ${{ env.EXPORT_PATH }}/${{ env.SOLUTION_NAME }}.zip
+          solution-output-file: out/exported/${{ env.SOLUTION_NAME }}.zip
           overwrite: true
-            
+
       - name: Unpack unmanaged solution
         uses: microsoft/powerplatform-actions/unpack-solution@v1
         with:
-          solution-file: ${{ env.EXPORT_PATH }}/${{ env.SOLUTION_NAME }}.zip
-          solution-folder: ${{ env.SOLUTION_PATH }}/${{ env.SOLUTION_NAME }}
+          solution-file: out/exported/${{ env.SOLUTION_NAME }}.zip
+          solution-folder: src/${{ env.SOLUTION_NAME }}
           solution-type: Unmanaged
           overwrite-files: true
 
-      - name: Copy ZIPs into solution folder
+      - name: Copy ZIPs to artifacts folder
         run: |
-          mkdir "${{ env.SOLUTION_PATH }}\\artifacts" -Force
-          copy "${{ env.EXPORT_PATH }}\\*.zip" "${{ env.SOLUTION_PATH }}\\artifacts\\"
+          mkdir artifacts -Force
+          copy out/exported\*.zip artifacts\
 
       - name: Branch solution
         uses: microsoft/powerplatform-actions/branch-solution@v1
         with:
-          solution-folder: ${{ env.SOLUTION_PATH }}/${{ env.SOLUTION_NAME }}
-          solution-target-folder: ${{ env.TARGET_PATH }}/${{ env.SOLUTION_NAME }}
+          solution-folder: src/${{ env.SOLUTION_NAME }}
+          solution-target-folder: src/${{ env.SOLUTION_NAME }}
           repo-token: ${{ secrets.GITHUB_TOKEN }}
           allow-empty-commit: true
