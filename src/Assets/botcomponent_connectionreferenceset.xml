@@ -1,0 +1,11 @@
+<botcomponent_connectionreferenceset>
+  <botcomponent_connectionreference botcomponentid.schemaname="alm_agent1.topic.MSNWeatherGetcurrentweather" connectionreferenceid.connectionreferencelogicalname="alm_agent1.connectionreference.cr51e_weatherCopilot.cr.xYOj8vSR">
+    <iscustomizable>1</iscustomizable>
+  </botcomponent_connectionreference>
+  <botcomponent_connectionreference botcomponentid.schemaname="alm_agent1.topic.MSNWeatherGetforecastfortoday" connectionreferenceid.connectionreferencelogicalname="alm_agent1.connectionreference.cr51e_weatherCopilot.cr.xYOj8vSR">
+    <iscustomizable>1</iscustomizable>
+  </botcomponent_connectionreference>
+  <botcomponent_connectionreference botcomponentid.schemaname="alm_agent1.topic.MSNWeatherGettheforecastfortomorrow" connectionreferenceid.connectionreferencelogicalname="alm_agent1.connectionreference.cr51e_weatherCopilot.cr.xYOj8vSR">
+    <iscustomizable>1</iscustomizable>
+  </botcomponent_connectionreference>
+</botcomponent_connectionreferenceset>

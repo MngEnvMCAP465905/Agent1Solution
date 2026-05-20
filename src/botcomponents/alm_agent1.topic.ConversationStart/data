@@ -1,0 +1,19 @@
+kind: AdaptiveDialog
+beginDialog:
+  kind: OnConversationStart
+  id: main
+  actions:
+    - kind: SendActivity
+      id: sendMessage_M0LuhV
+      activity:
+        text:
+          - |-
+            Hello, I'm {System.Bot.Name} Agent, a virtual assistant. I can answer general questions about the current weather as well as forecasts for today and tomorrow. Just so you are aware, I sometimes use AI to answer your questions.
+
+            _**Note**: You can now customize this agent's topics and knowledge for your own needs. For more information about this agent and how to modify it, visit the agent [documentation.](https://go.microsoft.com/fwlink/?linkid=2271069)_
+        speak:
+          - Thanks for calling, how can I help?
+        quickReplies:
+          - kind: MessageBack
+            title: What can I ask?
+            text: What can I ask?
