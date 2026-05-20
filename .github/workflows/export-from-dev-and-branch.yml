@@ -5,7 +5,7 @@ on:
     inputs:
       solution-name:
         required: true
-        default: SampleSolution
+        default: Agent1Solution
         description: 'The name of the solution from the Power Platform.'
       solution-exported-folder:
         description: 'The folder name for staging the exported solution.'
@@ -40,18 +40,18 @@ jobs:
     - name: Run Power Platform WhoAmI 
       uses: microsoft/powerplatform-actions/who-am-i@v1
       with:
-        environment-url: ${{ vars.PROD_ENVIRONMENT_URL }}
-        app-id: ${{ secrets.CLIENT_ID }}
-        client-secret: ${{ secrets.CLIENT_SECRET }}
-        tenant-id: ${{ secrets.TENANT_ID }}
+        environment-url: ${{ secrets.POWER_PLATFORM_ALM_DEMOS_GITHUB_ENVIRONMENT_URL }}
+        app-id: ${{ secrets.AZURE_ALM_DEMOS_DEV_CLIENT_ID }}
+        client-secret: ${{ secrets.AZURE_ALM_DEMOS_DEV_CLIENT_SECRET }}
+        tenant-id: ${{ secrets.AZURE_ALM_DEMOS_DEV_TENANT_ID }}
       
     - name: Export managed solution
       uses: microsoft/powerplatform-actions/export-solution@v1
       with:
-        environment-url: ${{ vars.DEV_ENVIRONMENT_URL }}
-        app-id: ${{ secrets.CLIENT_ID }}
-        client-secret: ${{ secrets.CLIENT_SECRET }}
-        tenant-id: ${{ secrets.TENANT_ID }}
+        environment-url: ${{ secrets.POWER_PLATFORM_ALM_DEMOS_DEV_ENVIRONMENT_URL }}
+        app-id: ${{ secrets.AZURE_ALM_DEMOS_DEV_CLIENT_ID }}
+        client-secret: ${{ secrets.AZURE_ALM_DEMOS_DEV_CLIENT_SECRET }}
+        tenant-id: ${{ secrets.AZURE_ALM_DEMOS_DEV_TENANT_ID }}
         solution-name: ${{ github.event.inputs.solution-name }}  
         solution-output-file: ${{ github.event.inputs.solution-exported-folder}}/${{ github.event.inputs.solution-name }}_managed.zip   
         managed: true 
@@ -60,10 +60,10 @@ jobs:
     - name: Export unmanaged solution
       uses: microsoft/powerplatform-actions/export-solution@v1
       with:
-        environment-url: ${{ vars.DEV_ENVIRONMENT_URL }}
-        app-id: ${{ secrets.CLIENT_ID }}
-        client-secret: ${{ secrets.CLIENT_SECRET }}
-        tenant-id: ${{ secrets.TENANT_ID }}
+        environment-url: ${{ secrets.POWER_PLATFORM_ALM_DEMOS_DEV_ENVIRONMENT_URL }}
+        app-id: ${{ secrets.AZURE_ALM_DEMOS_DEV_CLIENT_ID }}
+        client-secret: ${{ secrets.AZURE_ALM_DEMOS_DEV_CLIENT_SECRET }}
+        tenant-id: ${{ secrets.AZURE_ALM_DEMOS_DEV_TENANT_ID }}
         solution-name: ${{ github.event.inputs.solution-name }}
         solution-output-file: ${{ github.event.inputs.solution-exported-folder}}/${{ github.event.inputs.solution-name }}.zip
         overwrite: true
