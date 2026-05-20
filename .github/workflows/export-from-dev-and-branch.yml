@@ -68,7 +68,15 @@ jobs:
           solution-name: ${{ env.SOLUTION_NAME }}
           solution-output-file: ${{ env.EXPORT_PATH }}/${{ env.SOLUTION_NAME }}.zip
           overwrite: true
-
+  
+      - name: Upload solution ZIP artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: solution-zip-files
+          path: |
+            ${{ env.EXPORT_PATH }}/${{ env.SOLUTION_NAME }}.zip
+            ${{ env.EXPORT_PATH }}/${{ env.SOLUTION_NAME }}_managed.zip
+            
       - name: Unpack unmanaged solution
         uses: microsoft/powerplatform-actions/unpack-solution@v1
         with:
