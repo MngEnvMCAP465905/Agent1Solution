@@ -9,10 +9,7 @@ This repository uses GitHub Actions and requires configuration of **Secrets** an
 
 ### 🔐 Secrets
 
-Secrets are encrypted values used to securely store sensitive information such as credentials, tokens, and keys. 
-
-
-These values are not exposed in logs and are required for secure authentication during workflow execution.
+Secrets are encrypted values used to securely store sensitive information such as credentials, tokens, and keys. These values are not exposed in logs and are required for secure authentication during workflow execution.
 
 | Name   | Description                                                                 | Scope        |
 |---------------|-----------------------------------------------------------------------------|--------------|
