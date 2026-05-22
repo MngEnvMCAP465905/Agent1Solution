@@ -20,12 +20,6 @@ Secrets are encrypted values used to securely store sensitive information such a
 - **TENANT_ID** (Organization)  
   The Directory (Tenant) ID of the Microsoft Entra ID instance hosting the App Registration. Required for authentication context.
 
-| Name   | Description                                                                 | Scope        |
-|---------------|-----------------------------------------------------------------------------|--------------|
-| CLIENT_ID     | The Application (Client) ID of the Microsoft Entra ID App Registration used for authentication. Identifies the service principal used by workflows. | Organization   |
-| CLIENT_SECRET | The client secret (password) associated with the App Registration. Used to securely authenticate the service principal. | Organization   |
-| TENANT_ID     | The Directory (Tenant) ID of the Microsoft Entra ID instance hosting the App Registration. Required for authentication context. | Organization   |
-
 > 🔒 Organizational secrets can be overridden at the repository level when repository-specific values are required.
 
 ### ⚙️ Variables
