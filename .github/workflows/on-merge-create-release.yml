@@ -18,10 +18,11 @@ jobs:
 
       - name: Generate tag
         id: tag
+        shell: bash
         run: |
           TAG="v$(date -u +'%Y.%m.%d.%H.%M')"
           echo "tag=$TAG" >> $GITHUB_OUTPUT
-          echo "Generated tag: $TAG"
+          echo "Generated tag: $TAG
 
       - name: Create Git tag
         run: |
