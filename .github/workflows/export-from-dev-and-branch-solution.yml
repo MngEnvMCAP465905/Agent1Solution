@@ -1,4 +1,4 @@
-name: export-and-branch-solution
+name: export-from-dev-and-branch-solution
 
 on:
   workflow_dispatch:
