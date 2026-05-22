@@ -50,7 +50,6 @@ jobs:
         client-secret: ${{ secrets.AZURE_ALM_DEMOS_DEV_CLIENT_SECRET }}
         tenant-id: ${{env.TENANT_ID}}
 
-
     - name: export-solution action
       uses: microsoft/powerplatform-actions/export-solution@v1
       with:
