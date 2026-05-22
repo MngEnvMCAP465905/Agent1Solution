@@ -43,6 +43,6 @@ jobs:
         app-id: ${{ secrets.AZURE_ALM_DEMOS_DEV_CLIENT_ID }}
         client-secret: ${{ secrets.AZURE_ALM_DEMOS_DEV_CLIENT_SECRET }}
         tenant-id: ${{ secrets.AZURE_ALM_DEMOS_DEV_TENANT_ID }}
-        solution-file: out/release/${{ github.event.inputs.solution-name }}_managed.zip
+        solution-file: artifacts/${{ inputs.solution-name }}_managed.zip
         force-overwrite: true
         publish-changes: true
