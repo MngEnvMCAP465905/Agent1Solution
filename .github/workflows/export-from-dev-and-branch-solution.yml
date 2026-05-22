@@ -8,19 +8,7 @@ on:
         description: 'name of the solution to worked on from Power Platform'
         required: true
         default: Agent1Solution
-       #Do Not change these values
-      solution_exported_folder:
-        description: 'folder name for staging the exported solution *do not change*'
-        required: true
-        default: out/exported/
-      solution_folder:
-        description: 'staging the unpacked solution folder before check-in *do not change*'
-        required: true
-        default: out/solutions/
-      solution_target_folder: 
-       description: 'folder name to be created and checked in *do not change*'
-       required: true
-       default: solutions/
+
 env:
   ENVIRONMENT_URL: ${{ vars.DEV_ENVIRONMENT_URL }}
   CLIENT_ID: ${{ secrets.CLIENT_ID }}
