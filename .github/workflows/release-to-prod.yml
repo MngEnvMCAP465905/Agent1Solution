@@ -35,7 +35,10 @@ jobs:
         app-id: ${{ env.CLIENT_ID }}
         client-secret: ${{ env.CLIENT_SECRET }}
         tenant-id: ${{ env.TENANT_ID }}
-   
+
+    - name: Debug - list files
+      run: dir artifacts
+
     - name: Import solution to destination environment
       uses: microsoft/powerplatform-actions/import-solution@v1
       with:
