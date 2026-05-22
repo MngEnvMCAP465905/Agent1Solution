@@ -28,25 +28,21 @@ on:
        description: 'folder where the released binaries are going to be hosted *do not change*'
        type: string
        default: out/release
-      BUILD_ENVIRONMENT_URL:
-        description: 'Build environment url.'
-        type: string
-        required: true      
-      PRODUCTION_ENVIRONMENT_URL: 
-        description: 'Production environment url.'
-        type: string
-        required: true
-      CLIENT_ID: 
-        description: 'The client id'
-        type: string
-        required: true
-      TENANT_ID: 
-        description: 'The tenant id'
-        type: string
-        required: true
     secrets:
-      envSecret:
+      SECRET_BUILD_ENVIRONMENT_URL:
+        description: 'Build environment url.'
+        required: true
+      SECRET_PRODUCTION_ENVIRONMENT_URL:
+        description: 'Production environment url.'
+        required: true
+      SECRET_CLIENT_ID:
+        description: 'The client id'
+        required: true
+      SECRET_CLIENT_SECRET:
         description: 'The secret value for authentication using SPN'
+        required: true
+      SECRET_TENANT_ID:
+        description: 'The tenant id'
         required: true
 
 jobs:
@@ -71,10 +67,10 @@ jobs:
     - name: Import solution as unmanaged to build env
       uses: microsoft/powerplatform-actions/import-solution@v0
       with:
-        environment-url: ${{inputs.BUILD_ENVIRONMENT_URL}}
-        app-id: ${{inputs.CLIENT_ID}}
-        client-secret: ${{ secrets.envSecret }}
-        tenant-id: ${{inputs.TENANT_ID}}
+        environment-url: ${{secrets.SECRET_BUILD_ENVIRONMENT_URL}}
+        app-id: ${{secrets.SECRET_CLIENT_ID}}
+        client-secret: ${{ secrets.SECRET_CLIENT_SECRET }}
+        tenant-id: ${{secrets.SECRET_TENANT_ID}}
         solution-file: ${{ inputs.solution_outbound_folder}}/${{ inputs.solution_name }}.zip
         force-overwrite: true
         publish-changes: true
@@ -82,10 +78,10 @@ jobs:
     - name: Export solution as managed
       uses: microsoft/powerplatform-actions/export-solution@v0
       with:
-        environment-url: ${{inputs.BUILD_ENVIRONMENT_URL}}
-        app-id: ${{inputs.CLIENT_ID}}
-        client-secret: ${{ secrets.envSecret }} 
-        tenant-id: ${{inputs.TENANT_ID}}
+        environment-url: ${{secrets.SECRET_BUILD_ENVIRONMENT_URL }}
+        app-id: ${{ secrets.SECRET_CLIENT_ID }}
+        client-secret: ${{ secrets.SECRET_CLIENT_SECRET }} 
+        tenant-id: ${{ secrets.SECRET_TENANT_ID }}
         solution-name: ${{ inputs.solution_name }}
         managed: true
         solution-output-file: ${{ inputs.solution_shipping_folder}}/${{ inputs.solution_name }}_managed.zip
@@ -115,10 +111,10 @@ jobs:
     - name: Import solution to prod env
       uses: microsoft/powerplatform-actions/import-solution@v0
       with:
-        environment-url: ${{inputs.PRODUCTION_ENVIRONMENT_URL}}
-        app-id: ${{inputs.CLIENT_ID}}
-        client-secret: ${{ secrets.envSecret }}
-        tenant-id: ${{inputs.TENANT_ID}}
+        environment-url: ${{secrets.SECRET_PRODUCTION_ENVIRONMENT_URL }}
+        app-id: ${{secrets.SECRET_CLIENT_ID }}
+        client-secret: ${{ secrets.SECRET_CLIENT_SECRET }}
+        tenant-id: ${{ secrets.SECRET_TENANT_ID }}
         solution-file: ${{ inputs.solution_release_folder}}/${{ inputs.solution_name }}_managed.zip
         force-overwrite: true
         publish-changes: true
