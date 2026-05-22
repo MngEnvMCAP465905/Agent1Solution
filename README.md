@@ -1,5 +1,7 @@
 # Agent1Solution
 
+This is simple agent to demonstrate deployment better practices using GitHub Actions.
+
 ## Links
 
 - https://learn.microsoft.com/en-us/power-platform/alm/devops-github-actions
