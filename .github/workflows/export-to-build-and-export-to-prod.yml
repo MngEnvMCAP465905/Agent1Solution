@@ -1,7 +1,5 @@
-name: release-solution-to-prod-reusable
-# Reusable workflow
-# convert solution to managed (using a build PowerPlatform environment for the conversion)
-# upload the solution to the GitHub artifacts and deploy to the PROD environment
+name: export-to-build-and-export-to-prod
+
 on:
   workflow_dispatch:
     inputs:
