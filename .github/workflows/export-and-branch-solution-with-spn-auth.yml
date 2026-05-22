@@ -1,6 +1,7 @@
-name: export-and-branch-solution
-# Export solution from DEV environment
-#  unpack it and prepare, commit and push a git branch with the changes
+name: release-solution-to-prod
+# prepare for releasing to prod:
+#   convert solution to managed (using a build PowerPlatform environment for the conversion)
+#   upload the solution to the GitHub artifacts and deploy to the PROD environment
 
 on:
   workflow_dispatch:
@@ -11,27 +12,38 @@ on:
         required: true
         default: ALMLab
        #Do Not change these values
-      solution_exported_folder:
+      solution_shipping_folder:
         description: 'folder name for staging the exported solution *do not change*'
         required: true
-        default: out/exported/
-      solution_folder:
+        default: out/ship/
+      solution_outbound_folder:
         description: 'staging the unpacked solution folder before check-in *do not change*'
         required: true
         default: out/solutions/
-      solution_target_folder: 
+      solution_source_folder: 
        description: 'folder name to be created and checked in *do not change*'
        required: true
        default: solutions/
+      solution_release_folder:
+       description: 'folder where the released binaries are going to be hosted *do not change*'
+       required: true
+       default: out/release
+  release:
+    types: [created]
+  
+
 env:
 #edit your values here
-  ENVIRONMENT_URL: '<ENVIRONMENTURL>'
+  BUILD_ENVIRONMENT_URL: '<BUILDENVIRONMENTURL>'
+  PRODUCTION_ENVIRONMENT_URL: '<PRODENVIRONMENTURL>'
   CLIENT_ID: '<APPID>'
   TENANT_ID: '<TENANT ID>'
+
 permissions:
   contents: write
+
 jobs:
-  export-from-dev:
+  convert-to-managed:
     runs-on: windows-latest
     # or you can say runs-on: ubuntu-latest
     env:
@@ -42,37 +54,64 @@ jobs:
       with:
         lfs: true
 
-    - name: who-am-i action
-      uses: microsoft/powerplatform-actions/who-am-i@v0
+    - name: Pack solution
+      uses: microsoft/powerplatform-actions/pack-solution@v0
       with:
-        environment-url: ${{env.ENVIRONMENT_URL}}
+        solution-folder: ${{ github.event.inputs.solution_source_folder}}/${{ github.event.inputs.solution_name }}
+        solution-file: ${{ github.event.inputs.solution_outbound_folder}}/${{ github.event.inputs.solution_name }}.zip
+        solution-type: Unmanaged
+
+    - name: Import solution as unmanaged to build env
+      uses: microsoft/powerplatform-actions/import-solution@v0
+      with:
+        environment-url: ${{env.BUILD_ENVIRONMENT_URL}}
         app-id: ${{env.CLIENT_ID}}
         client-secret: ${{ secrets.PowerPlatformSPN }}
         tenant-id: ${{env.TENANT_ID}}
+        solution-file: ${{ github.event.inputs.solution_outbound_folder}}/${{ github.event.inputs.solution_name }}.zip
+        force-overwrite: true
+        publish-changes: true
 
-
-    - name: export-solution action
+    - name: Export solution as managed
       uses: microsoft/powerplatform-actions/export-solution@v0
       with:
-        environment-url: ${{env.ENVIRONMENT_URL}}
+        environment-url: ${{env.BUILD_ENVIRONMENT_URL}}
         app-id: ${{env.CLIENT_ID}}
         client-secret: ${{ secrets.PowerPlatformSPN }}
         tenant-id: ${{env.TENANT_ID}}
         solution-name: ${{ github.event.inputs.solution_name }}
-        solution-output-file: ${{ github.event.inputs.solution_exported_folder}}/${{ github.event.inputs.solution_name }}.zip
+        managed: true
+        solution-output-file: ${{ github.event.inputs.solution_shipping_folder}}/${{ github.event.inputs.solution_name }}.zip
 
-    - name: unpack-solution action
-      uses: microsoft/powerplatform-actions/unpack-solution@v0
+    - name: Upload the ready to ship solution to GH artifact store
+      uses: actions/upload-artifact@v2
       with:
-        solution-file: ${{ github.event.inputs.solution_exported_folder}}/${{ github.event.inputs.solution_name }}.zip
-        solution-folder: ${{ github.event.inputs.solution_folder}}/${{ github.event.inputs.solution_name }}
-        solution-type: 'Unmanaged'
-        overwrite-files: true
+        name: managedSolutions
+        path: ${{ github.event.inputs.solution_shipping_folder}}/${{ github.event.inputs.solution_name }}.zip
 
-    - name: branch-solution, prepare it for a PullRequest
-      uses: microsoft/powerplatform-actions/branch-solution@v0
+  release-to-staging:
+    needs: [ convert-to-managed ]
+    runs-on: windows-latest
+    env:
+      RUNNER_DEBUG: 1
+
+    steps:
+    - uses: actions/checkout@v2
       with:
-        solution-folder: ${{ github.event.inputs.solution_folder}}/${{ github.event.inputs.solution_name }}
-        solution-target-folder: ${{ github.event.inputs.solution_target_folder}}/${{ github.event.inputs.solution_name }}
-        repo-token: ${{ secrets.GITHUB_TOKEN }}
-        allow-empty-commit: true
+        lfs: true
+
+    - name: Fetch the ready to ship solution from GH artifact store
+      uses: actions/download-artifact@v2
+      with:
+        name: managedSolutions
+        path: ${{ github.event.inputs.solution_release_folder}}
+    - name: Import solution to prod env
+      uses: microsoft/powerplatform-actions/import-solution@v0
+      with:
+        environment-url: ${{env.PRODUCTION_ENVIRONMENT_URL}}
+        app-id: ${{env.CLIENT_ID}}
+        client-secret: ${{ secrets.PowerPlatformSPN }}
+        tenant-id: ${{env.TENANT_ID}}
+        solution-file: ${{ github.event.inputs.solution_release_folder}}/${{ github.event.inputs.solution_name }}.zip
+        force-overwrite: true
+        publish-changes: true
