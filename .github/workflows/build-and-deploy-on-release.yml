@@ -9,6 +9,6 @@ permissions:
   
 jobs:
   deploy-on-release:
-    uses: ./.github/workflows/build-and-export-to-prod.yml
+    uses: ./.github/workflows/build-and-deploy-to-prod.yml
     with:
       solution_name: Agent1Solution
