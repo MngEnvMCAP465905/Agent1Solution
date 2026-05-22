@@ -1,4 +1,4 @@
-name: export-to-build-and-export-to-prod
+name: build-and-export-to-prod
 
 on:
   workflow_dispatch:
