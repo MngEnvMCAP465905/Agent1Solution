@@ -5,7 +5,9 @@ This is simple agent to demonstrate deployment better practices using GitHub Act
 
 ## Secrets
 
-Secrets are securely stored, encrypted values used by workflows to authenticate with external services and protect sensitive information. These values are not exposed in logs and should be used for credentials such as client secrets, tokens, and other confidential data required during pipeline execution.
+Secrets are securely stored, encrypted values used by workflows to authenticate with external services and protect sensitive information. 
+
+These values are not exposed in logs and should be used for credentials such as client secrets, tokens, and other confidential data required during pipeline execution.
 
 | Name   | Description                                                                 |
 |---------------|-----------------------------------------------------------------------------|
