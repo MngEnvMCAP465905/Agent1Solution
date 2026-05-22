@@ -48,7 +48,15 @@ jobs:
         lfs: true
      
     - name: Install Power Platform Tools
-      uses: microsoft/powerplatform-actions/actions-install@v1
+      uses: microsoft/powerplatform-actions/actions-install@v1     
+
+    - name: who-am-i action
+      uses: microsoft/powerplatform-actions/who-am-i@v1
+      with:
+        environment-url: ${{env.BUILD_ENVIRONMENT_URL}}
+        app-id: ${{env.CLIENT_ID}}
+        client-secret: ${{ secrets.AZURE_ALM_DEMOS_DEV_CLIENT_SECRET }}
+        tenant-id: ${{env.TENANT_ID}}
 
     - name: Pack solution
       uses: microsoft/powerplatform-actions/pack-solution@v1
