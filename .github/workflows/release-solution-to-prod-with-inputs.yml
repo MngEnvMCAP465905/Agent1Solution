@@ -26,12 +26,12 @@ on:
        description: 'folder where the released binaries are going to be hosted *do not change*'
        type: string
        default: out/release
-   env:
-    #edit your values here
-    BUILD_ENVIRONMENT_URL: ${{ secrets.POWER_PLATFORM_ALM_DEMOS_BUILD_ENVIRONMENT_URL }}
-    PRODUCTION_ENVIRONMENT_URL: ${{ secrets.POWER_PLATFORM_ALM_DEMOS_GITHUB_ENVIRONMENT_URL }}
-    CLIENT_ID: ${{ secrets.AZURE_ALM_DEMOS_DEV_CLIENT_ID }}
-    TENANT_ID: ${{ secrets.AZURE_ALM_DEMOS_DEV_TENANT_ID }}
+ env:
+  #edit your values here
+  BUILD_ENVIRONMENT_URL: ${{ secrets.POWER_PLATFORM_ALM_DEMOS_BUILD_ENVIRONMENT_URL }}
+  PRODUCTION_ENVIRONMENT_URL: ${{ secrets.POWER_PLATFORM_ALM_DEMOS_GITHUB_ENVIRONMENT_URL }}
+  CLIENT_ID: ${{ secrets.AZURE_ALM_DEMOS_DEV_CLIENT_ID }}
+  TENANT_ID: ${{ secrets.AZURE_ALM_DEMOS_DEV_TENANT_ID }}
 permissions:
   contents: write
 
