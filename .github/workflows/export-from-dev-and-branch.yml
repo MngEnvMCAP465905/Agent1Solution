@@ -1,4 +1,4 @@
-name: export-from-dev-and-branch
+name: export-from-source-and-branch
 
 on:
   workflow_dispatch:
@@ -20,7 +20,7 @@ jobs:
       SOLUTION_EXPORTED_FOLDER: 'out/exported/'
       SOLUTION_FOLDER: 'out/solutions/'
       SOLUTION_TARGET_FOLDER: 'solutions/'
-      POWER_PLATFORM_DEV_ENVIRONMENT_URL: ${{ secrets.POWER_PLATFORM_ALM_DEMOS_DEV_ENVIRONMENT_URL }}
+      POWER_PLATFORM_SOURCE_ENVIRONMENT_URL: ${{ secrets.POWER_PLATFORM_ALM_DEMOS_DEV_ENVIRONMENT_URL }}
       AZURE_CLIENT_ID: ${{ secrets.AZURE_ALM_DEMOS_DEV_CLIENT_ID }}
       AZURE_CLIENT_SECRET: ${{ secrets.AZURE_ALM_DEMOS_DEV_CLIENT_SECRET }}
       AZURE_TENANT_ID: ${{ secrets.AZURE_ALM_DEMOS_DEV_TENANT_ID }}
@@ -37,7 +37,7 @@ jobs:
       - name: Validate connection
         uses: microsoft/powerplatform-actions/who-am-i@v1
         with:
-          environment-url: ${{ env.POWER_PLATFORM_DEV_ENVIRONMENT_URL }}
+          environment-url: ${{ env.POWER_PLATFORM_SOURCE_ENVIRONMENT_URL }}
           app-id: ${{ env.AZURE_CLIENT_ID }}
           client-secret: ${{ env.AZURE_CLIENT_SECRET }}
           tenant-id: ${{ env.AZURE_TENANT_ID }}
@@ -45,7 +45,7 @@ jobs:
       - name: Export unmanaged solution
         uses: microsoft/powerplatform-actions/export-solution@v1
         with:
-          environment-url: ${{ env.POWER_PLATFORM_DEV_ENVIRONMENT_URL }}
+          environment-url: ${{ env.POWER_PLATFORM_SOURCE_ENVIRONMENT_URL }}
           app-id: ${{ env.AZURE_CLIENT_ID }}
           client-secret: ${{ env.AZURE_CLIENT_SECRET }}
           tenant-id: ${{ env.AZURE_TENANT_ID }}
