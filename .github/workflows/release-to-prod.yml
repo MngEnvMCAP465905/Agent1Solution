@@ -20,14 +20,16 @@ jobs:
       with:
         lfs: true
         
-    - name: Install Power Platform tools
+    - name: Install Power Platform Tools
       uses: microsoft/powerplatform-actions/actions-install@v1
 
-    - name: Download the managed solution to the artifact store
-      uses: actions/download-artifact@v4
+    - name: Validate connection
+      uses: microsoft/powerplatform-actions/who-am-i@v1
       with:
-        name: managedSolutions
-        path: out/release/
+        environment-url: ${{ env.ENVIRONMENT_URL }}
+        app-id: ${{ env.CLIENT_ID }}
+        client-secret: ${{ env.CLIENT_SECRET }}
+        tenant-id: ${{ env.TENANT_ID }}
    
     - name: Import solution to destination environment
       uses: microsoft/powerplatform-actions/import-solution@v1
