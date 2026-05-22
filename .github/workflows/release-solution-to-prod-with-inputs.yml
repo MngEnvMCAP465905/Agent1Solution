@@ -26,7 +26,7 @@ on:
        description: 'folder where the released binaries are going to be hosted *do not change*'
        type: string
        default: out/release
- env:
+env:
   #edit your values here
   BUILD_ENVIRONMENT_URL: ${{ secrets.POWER_PLATFORM_ALM_DEMOS_BUILD_ENVIRONMENT_URL }}
   PRODUCTION_ENVIRONMENT_URL: ${{ secrets.POWER_PLATFORM_ALM_DEMOS_GITHUB_ENVIRONMENT_URL }}
