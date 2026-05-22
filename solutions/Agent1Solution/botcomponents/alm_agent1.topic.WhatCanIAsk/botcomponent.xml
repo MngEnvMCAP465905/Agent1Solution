@@ -1,0 +1,10 @@
+<botcomponent schemaname="alm_agent1.topic.WhatCanIAsk">
+  <componenttype>9</componenttype>
+  <iscustomizable>0</iscustomizable>
+  <name>What Can I Ask</name>
+  <parentbotid>
+    <schemaname>alm_agent1</schemaname>
+  </parentbotid>
+  <statecode>0</statecode>
+  <statuscode>1</statuscode>
+</botcomponent>
