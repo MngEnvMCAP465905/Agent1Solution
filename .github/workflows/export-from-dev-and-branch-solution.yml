@@ -22,9 +22,9 @@ on:
        required: true
        default: solutions/
 env:
-  ENVIRONMENT_URL: ${{ secrets.POWER_PLATFORM_ALM_DEMOS_DEV_ENVIRONMENT_URL }}
-  CLIENT_ID: ${{ secrets.AZURE_ALM_DEMOS_DEV_CLIENT_ID }}
-  TENANT_ID: ${{ secrets.AZURE_ALM_DEMOS_DEV_TENANT_ID }}
+  ENVIRONMENT_URL: ${{ vars.DEV_ENVIRONMENT_URL }}
+  CLIENT_ID: ${{ secrets.CLIENT_ID }}
+  TENANT_ID: ${{ secrets.TENANT_ID }}
 permissions:
   contents: write
 jobs:
