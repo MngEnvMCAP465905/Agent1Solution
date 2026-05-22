@@ -50,7 +50,13 @@ jobs:
           solution-output-file: out/exported/${{ env.SOLUTION_NAME }}_managed.zip
           managed: true
           overwrite: true
-
+          
+      - name: Upload the managed solution to the artifact store
+        uses: actions/upload-artifact@v2
+        with:
+          name: managedSolutions
+          path: out/exported/${{ env.SOLUTION_NAME }}_managed.zip
+          
       - name: Export unmanaged solution
         uses: microsoft/powerplatform-actions/export-solution@v1
         with:
