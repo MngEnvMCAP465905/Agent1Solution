@@ -1,0 +1,14 @@
+name: deploy-on-release
+
+on:
+  release:
+      types: [created]      
+      
+permissions:
+  contents: write
+  
+jobs:
+  deploy-on-release:
+    uses: ./.github/workflows/build-and-export-to-prod.yml
+    with:
+      solution_name: Agent1Solution
