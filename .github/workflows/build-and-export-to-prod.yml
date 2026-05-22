@@ -50,14 +50,14 @@ jobs:
         solution-file: ${{ env.SOLUTION_OUTBOUND_FOLDER }}/${{ inputs.solution_name }}.zip
         solution-type: Unmanaged
 
-    - name: Import solution as unmanaged to build env
+    - name: Import solution as unmanaged to build environment
       uses: microsoft/powerplatform-actions/import-solution@v1
       with:
         environment-url: ${{env.BUILD_ENVIRONMENT_URL}}
         app-id: ${{env.CLIENT_ID}}
         client-secret: ${{ secrets.AZURE_ALM_DEMOS_DEV_CLIENT_SECRET }}
         tenant-id: ${{env.TENANT_ID}}
-        solution-file: ${{ inputs.solution_outbound_folder}}/${{ inputs.solution_name }}.zip
+        solution-file: ${{ env.SOLUTION_OUTBOUND_FOLDER }}/${{ inputs.solution_name }}.zip
         force-overwrite: true
         publish-changes: true
 
@@ -70,19 +70,18 @@ jobs:
         tenant-id: ${{ env.TENANT_ID }}
         solution-name: ${{ inputs.solution_name }}
         managed: true
-        solution-output-file: ${{ inputs.solution_shipping_folder}}/${{ inputs.solution_name }}_managed.zip
+        solution-output-file: ${{ env.SOLUTION_SHIP_FOLDER }}/${{ inputs.solution_name }}_managed.zip
 
     - name: Upload the ready to ship solution to GH artifact store
       uses: actions/upload-artifact@v4
       with:
         name: managedSolutions
-        path: ${{ inputs.solution_shipping_folder}}/
+        path: ${{ env.SOLUTION_SHIP_FOLDER }}/
 
   release-to-staging:
-    needs: [ convert-to-managed ]
+    needs: [ build ]
+    
     runs-on: windows-latest
-    env:
-      RUNNER_DEBUG: 1
 
     steps:
     - uses: actions/checkout@v2
