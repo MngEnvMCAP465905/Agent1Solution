@@ -34,7 +34,10 @@ jobs:
     steps:
       - uses: actions/checkout@v2
         with:
-          lfs: true
+          lfs: true      
+
+      - name: Install Power Platform tools
+        uses: microsoft/powerplatform-actions/actions-install@v1
 
       - name: Pack solution as managed
         uses: microsoft/powerplatform-actions/pack-solution@v0
