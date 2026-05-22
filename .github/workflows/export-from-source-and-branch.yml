@@ -7,6 +7,16 @@ on:
         description: Solution name to export
         required: true
         default: Agent1Solution
+        
+env:
+  SOLUTION_NAME: ${{ inputs.solution_name }}
+  SOLUTION_EXPORTED_FOLDER: 'out/exported/'
+  SOLUTION_FOLDER: 'out/solutions/'
+  SOLUTION_TARGET_FOLDER: 'solutions/'
+  POWER_PLATFORM_SOURCE_ENVIRONMENT_URL: ${{ secrets.POWER_PLATFORM_ALM_DEMOS_DEV_ENVIRONMENT_URL }}
+  AZURE_CLIENT_ID: ${{ secrets.AZURE_ALM_DEMOS_DEV_CLIENT_ID }}
+  AZURE_CLIENT_SECRET: ${{ secrets.AZURE_ALM_DEMOS_DEV_CLIENT_SECRET }}
+  AZURE_TENANT_ID: ${{ secrets.AZURE_ALM_DEMOS_DEV_TENANT_ID }}
 
 permissions:
   contents: write
@@ -14,16 +24,6 @@ permissions:
 jobs:
   export-from-dev-and-branch:
     runs-on: windows-latest
-
-    env:
-      SOLUTION_NAME: ${{ inputs.solution_name }}
-      SOLUTION_EXPORTED_FOLDER: 'out/exported/'
-      SOLUTION_FOLDER: 'out/solutions/'
-      SOLUTION_TARGET_FOLDER: 'solutions/'
-      POWER_PLATFORM_SOURCE_ENVIRONMENT_URL: ${{ secrets.POWER_PLATFORM_ALM_DEMOS_DEV_ENVIRONMENT_URL }}
-      AZURE_CLIENT_ID: ${{ secrets.AZURE_ALM_DEMOS_DEV_CLIENT_ID }}
-      AZURE_CLIENT_SECRET: ${{ secrets.AZURE_ALM_DEMOS_DEV_CLIENT_SECRET }}
-      AZURE_TENANT_ID: ${{ secrets.AZURE_ALM_DEMOS_DEV_TENANT_ID }}
 
     steps:
       - name: Checkout repository
