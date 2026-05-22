@@ -26,12 +26,14 @@ Secrets are encrypted values used to securely store sensitive information such a
 
 Variables are non-sensitive configuration values used by workflows. These values are visible in logs and are typically used to define environment-specific settings.
 
+- **DEV_ENVIRONMENT_URL** (Organization)  
+  URL of the development Power Platform environment used for exporting solutions.
 
-| Name                     | Description                                                                 | Scope        |
-|----------------------------------|-----------------------------------------------------------------------------|--------------|
-| DEV_ENVIRONMENT_URL              | URL of the development Power Platform environment used for exporting solutions. | Organization   |
-| BUILD_ENVIRONMENT_URL            | URL of the build Power Platform environment used for managed solution conversion. | Organization   |
-| PROD_ENVIRONMENT_URL       | URL of the production Power Platform environment used for deployment.        | Organization   |
+- **BUILD_ENVIRONMENT_URL** (Organization)  
+  URL of the build Power Platform environment used for managed solution conversion.
+
+- **PROD_ENVIRONMENT_URL** (Organization)  
+  URL of the production Power Platform environment used for deployment.
 
 > ⚙️ Organizational variables can be overridden at the repository level when repository-specific values are required.
 
