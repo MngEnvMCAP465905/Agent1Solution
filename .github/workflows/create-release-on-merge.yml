@@ -8,7 +8,7 @@ permissions:
   contents: write
 
 jobs:
-  create-release:
+  create-release-on-merge:
     if: github.event.pull_request.merged == true
     runs-on: windows-latest
 
