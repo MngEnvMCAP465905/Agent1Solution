@@ -14,6 +14,7 @@ on:
 env:
   SOLUTION_NAME: ${{ inputs.solution_name }}
   SOLUTION_SHIP_FOLDER: 'out/ship/'
+  SOLUTION_SOURCE_FOLDER: 'solutions/'
   SOLUTION_RELEASE_FOLDER: 'out/release/'
   POWER_PLATFORM_SOURCE_ENVIRONMENT_URL: ${{ secrets.POWER_PLATFORM_ALM_DEMOS_DEV_ENVIRONMENT_URL }}
   POWER_PLATFORM_TARGET_ENVIRONMENT_URL: ${{ secrets.POWER_PLATFORM_ALM_DEMOS_DEV_ENVIRONMENT_URL }}
@@ -25,7 +26,7 @@ permissions:
   contents: write
 
 jobs:
-  export-from-source:
+  create-artifacts:
     runs-on: windows-latest
     env:
       RUNNER_DEBUG: 1
@@ -34,6 +35,13 @@ jobs:
       - uses: actions/checkout@v2
         with:
           lfs: true
+
+      - name: Pack solution (Managed)
+        uses: microsoft/powerplatform-actions/pack-solution@v0
+        with:
+          solution-folder: ${{ env.SOLUTION_SOURCE_FOLDER }}/${{ github.event.inputs.solution_name }}
+          solution-file: ${{ env.SOLUTION_SHIP_FOLDER }}/${{ github.event.inputs.solution_name }}.zip
+          solution-type: Managed
 
       - name: Export solution as managed
         uses: microsoft/powerplatform-actions/export-solution@v0
@@ -51,29 +59,6 @@ jobs:
         with:
           name: managedSolutions
           path: ${{ env.SOLUTION_SHIP_FOLDER }}${{ github.event.inputs.solution_name }}.zip
-
-  deploy-to-target:
-    needs: [export-from-source]
-    runs-on: windows-latest
-    env:
-      RUNNER_DEBUG: 1
-
-    steps:
-      - uses: actions/checkout@v2
-        with:
-          lfs: true
-
-      - name: Download managed solution
-        uses: actions/download-artifact@v2
-        with:
-          name: managedSolutions
-          path: ${{ env.SOLUTION_RELEASE_FOLDER }}
-
-      - name: Import solution to target env
-        uses: microsoft/powerplatform-actions/import-solution@v0
-        with:
-          environment-url: ${{ env.POWER_PLATFORM_TARGET_ENVIRONMENT_URL }}
-          app-id: ${{ env.AZURE_CLIENT_ID }}
           client-secret: ${{ env.AZURE_CLIENT_SECRET }}
           tenant-id: ${{ env.AZURE_TENANT_ID }}
           solution-file: ${{ env.SOLUTION_RELEASE_FOLDER }}${{ github.event.inputs.solution_name }}.zip
