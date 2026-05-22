@@ -1,0 +1,13 @@
+name: deploy-on-workflow-dispatch
+
+on:
+  workflow_dispatch:   
+      
+permissions:
+  contents: write
+  
+jobs:
+  deploy-on-workflow-dispatch:
+    uses: ./.github/workflows/build-and-deploy-to-prod.yml
+    with:
+      solution_name: Agent1Solution
