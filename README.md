@@ -3,19 +3,33 @@
 ## Introduction
 This is simple agent to demonstrate deployment better practices using GitHub Actions.
 
-## Secrets
+## Configuration
 
-Secrets are securely stored, encrypted values used by workflows to authenticate with external services and protect sensitive information. 
+This repository uses GitHub Actions and requires configuration of **Secrets** and **Variables** to securely authenticate and interact with Power Platform environments.
 
-These values are not exposed in logs and should be used for credentials such as client secrets, tokens, and other confidential data required during pipeline execution.
+---
 
-| Name   | Description                                                                 |
-|---------------|-----------------------------------------------------------------------------|
-| CLIENT_ID     | The Application (Client) ID of the Microsoft Entra ID App Registration used for authentication. Identifies the service principal used by workflows. |
-| CLIENT_SECRET | The client secret (password) associated with the App Registration. Used to securely authenticate the service principal. |
-| TENANT_ID     | The Directory (Tenant) ID of the Microsoft Entra ID instance hosting the App Registration. Required for authentication context. |
+### 🔐 Secrets
 
-🔐 These secrets are managed at the organization level and should be scoped to only the repositories that require them.
+Secrets are encrypted values used to securely store sensitive information such as credentials, tokens, and keys. These values are not exposed in logs and are required for secure authentication during workflow execution.
+
+| Name   | Description                                                                 | Scope        |
+|---------------|-----------------------------------------------------------------------------|--------------|
+| CLIENT_ID     | The Application (Client) ID of the Microsoft Entra ID App Registration used for authentication. Identifies the service principal used by workflows. | Organization   |
+| CLIENT_SECRET | The client secret (password) associated with the App Registration. Used to securely authenticate the service principal. | Organization   |
+| TENANT_ID     | The Directory (Tenant) ID of the Microsoft Entra ID instance hosting the App Registration. Required for authentication context. | Organization   |
+---
+
+### ⚙️ Variables
+
+Variables are non-sensitive configuration values used by workflows. These values are visible in logs and are typically used to define environment-specific settings.
+
+
+| Name                     | Description                                                                 | Scope        |
+|----------------------------------|-----------------------------------------------------------------------------|--------------|
+| DEV_ENVIRONMENT_URL              | URL of the development Power Platform environment used for exporting solutions. | Repository   |
+| BUILD_ENVIRONMENT_URL            | URL of the build Power Platform environment used for managed solution conversion. | Repository   |
+| PRODUCTION_ENVIRONMENT_URL       | URL of the production Power Platform environment used for deployment.        | Repository   |
 
 ## Links
 
