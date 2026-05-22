@@ -70,7 +70,7 @@ jobs:
       with:
         environment-url: ${{env.BUILD_ENVIRONMENT_URL}}
         app-id: ${{env.CLIENT_ID}}
-        client-secret: ${{ secrets.CLIENT_SECRET }}
+        client-secret: ${{ secrets.AZURE_ALM_DEMOS_DEV_CLIENT_SECRET }}
         tenant-id: ${{env.TENANT_ID}}
         solution-file: ${{ inputs.solution_outbound_folder}}/${{ inputs.solution_name }}.zip
         force-overwrite: true
@@ -81,7 +81,7 @@ jobs:
       with:
         environment-url: ${{env.BUILD_ENVIRONMENT_URL }}
         app-id: ${{ env.CLIENT_ID }}
-        client-secret: ${{ secrets.CLIENT_SECRET }} 
+        client-secret: ${{ secrets.AZURE_ALM_DEMOS_DEV_CLIENT_SECRET }}
         tenant-id: ${{ env.TENANT_ID }}
         solution-name: ${{ inputs.solution_name }}
         managed: true
