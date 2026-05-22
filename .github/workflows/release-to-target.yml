@@ -39,7 +39,7 @@ jobs:
         uses: microsoft/powerplatform-actions/actions-install@v1
 
       - name: Pack solution as managed
-        uses: microsoft/powerplatform-actions/pack-solution@v0
+        uses: microsoft/powerplatform-actions/pack-solution@v1
         with:
           solution-folder: ${{ env.SOLUTION_SOURCE_FOLDER }}/${{ github.event.inputs.solution_name }}
           solution-file: ${{ env.SOLUTION_SHIP_FOLDER }}/${{ github.event.inputs.solution_name }}.zip
