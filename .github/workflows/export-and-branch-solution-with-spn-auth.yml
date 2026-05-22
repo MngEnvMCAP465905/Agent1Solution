@@ -22,7 +22,6 @@ on:
        required: true
        default: solutions/
 env:
-#edit your values here
   ENVIRONMENT_URL: ${{ secrets.POWER_PLATFORM_ALM_DEMOS_DEV_ENVIRONMENT_URL }}
   CLIENT_ID: ${{ secrets.AZURE_ALM_DEMOS_DEV_CLIENT_ID }}
   TENANT_ID: ${{ secrets.AZURE_ALM_DEMOS_DEV_TENANT_ID }}
