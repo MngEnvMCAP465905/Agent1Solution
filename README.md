@@ -27,9 +27,9 @@ Variables are non-sensitive configuration values used by workflows. These values
 
 | Name                     | Description                                                                 | Scope        |
 |----------------------------------|-----------------------------------------------------------------------------|--------------|
-| DEV_ENVIRONMENT_URL              | URL of the development Power Platform environment used for exporting solutions. | Repository   |
-| BUILD_ENVIRONMENT_URL            | URL of the build Power Platform environment used for managed solution conversion. | Repository   |
-| PRODUCTION_ENVIRONMENT_URL       | URL of the production Power Platform environment used for deployment.        | Repository   |
+| DEV_ENVIRONMENT_URL              | URL of the development Power Platform environment used for exporting solutions. | Organization   |
+| BUILD_ENVIRONMENT_URL            | URL of the build Power Platform environment used for managed solution conversion. | Organization   |
+| PROD_ENVIRONMENT_URL       | URL of the production Power Platform environment used for deployment.        | Organization   |
 
 ## Links
 
