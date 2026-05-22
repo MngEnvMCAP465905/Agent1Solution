@@ -13,8 +13,8 @@ on:
 
 env:
   SOLUTION_NAME: ${{ inputs.solution_name }}
-  SOLUTION_SHIPPING_FOLDER: 'out/ship/'
-  SOLUTION_RELEASE_FOLDER: 'out/release'
+  SOLUTION_SHIP_FOLDER: 'out/ship/'
+  SOLUTION_RELEASE_FOLDER: 'out/release/'
   POWER_PLATFORM_SOURCE_ENVIRONMENT_URL: ${{ secrets.POWER_PLATFORM_ALM_DEMOS_DEV_ENVIRONMENT_URL }}
   POWER_PLATFORM_TARGET_ENVIRONMENT_URL: ${{ secrets.POWER_PLATFORM_ALM_DEMOS_DEV_ENVIRONMENT_URL }}
   AZURE_CLIENT_ID: ${{ secrets.AZURE_ALM_DEMOS_DEV_CLIENT_ID }}
@@ -44,13 +44,13 @@ jobs:
           tenant-id: ${{ env.AZURE_TENANT_ID }}
           solution-name: ${{ github.event.inputs.solution_name }}
           managed: true
-          solution-output-file: ${{ env.SOLUTION_SHIPPING_FOLDER }}${{ github.event.inputs.solution_name }}.zip
+          solution-output-file: ${{ env.SOLUTION_SHIP_FOLDER }}${{ github.event.inputs.solution_name }}.zip
 
       - name: Upload managed solution
         uses: actions/upload-artifact@v2
         with:
           name: managedSolutions
-          path: ${{ env.SOLUTION_SHIPPING_FOLDER }}${{ github.event.inputs.solution_name }}.zip
+          path: ${{ env.SOLUTION_SHIP_FOLDER }}${{ github.event.inputs.solution_name }}.zip
 
   deploy-to-target:
     needs: [export-from-source]
