@@ -24,46 +24,47 @@ on:
 env:
   ENVIRONMENT_URL: ${{ vars.DEV_ENVIRONMENT_URL }}
   CLIENT_ID: ${{ secrets.CLIENT_ID }}
+  CLIENT_SECRET: ${{ secrets.CLIENT_SECRET }}
   TENANT_ID: ${{ secrets.TENANT_ID }}
   SOLUTION_FOLDER: out/solutions/
   SOLUTION_EXPORTED_FOLDER: out/exported/
   SOLUTION_TARGET_FOLDER: solutions/
+  
 permissions:
   contents: write
+  
 jobs:
   export-from-dev:
     runs-on: windows-latest
-    # or you can say runs-on: ubuntu-latest
-    env:
-      RUNNER_DEBUG: 1
 
     steps:
-    - uses: actions/checkout@v4
+    - name: Checkout repository
+      uses: actions/checkout@v4
       with:
         lfs: true
      
-    - name: Install Power Platform Tools
+    - name: Install Power Platform tools
       uses: microsoft/powerplatform-actions/actions-install@v1
 
-    - name: who-am-i action
+    - name: Validate connection
       uses: microsoft/powerplatform-actions/who-am-i@v1
       with:
         environment-url: ${{env.ENVIRONMENT_URL}}
         app-id: ${{env.CLIENT_ID}}
-        client-secret: ${{ secrets.AZURE_ALM_DEMOS_DEV_CLIENT_SECRET }}
+        client-secret: ${{ env.CLIENT_SECRET }}
         tenant-id: ${{env.TENANT_ID}}
 
-    - name: export-solution action
+    - name: Export solution
       uses: microsoft/powerplatform-actions/export-solution@v1
       with:
         environment-url: ${{env.ENVIRONMENT_URL}}
         app-id: ${{env.CLIENT_ID}}
-        client-secret: ${{ secrets.AZURE_ALM_DEMOS_DEV_CLIENT_SECRET }}
+        client-secret: ${{ env.CLIENT_SECRET }}
         tenant-id: ${{env.TENANT_ID}}
         solution-name: ${{ github.event.inputs.solution_name }}
         solution-output-file: ${{ github.event.inputs.solution_exported_folder}}/${{ github.event.inputs.solution_name }}.zip
 
-    - name: unpack-solution action
+    - name: Unpack solution
       uses: microsoft/powerplatform-actions/unpack-solution@v1
       with:
         solution-file: ${{ github.event.inputs.solution_exported_folder}}/${{ github.event.inputs.solution_name }}.zip
@@ -71,7 +72,7 @@ jobs:
         solution-type: 'Unmanaged'
         overwrite-files: true
 
-    - name: branch-solution, prepare it for a PullRequest
+    - name: Branch solution to prepare for pull request
       uses: microsoft/powerplatform-actions/branch-solution@v1
       with:
         solution-folder: ${{ github.event.inputs.solution_folder}}/${{ github.event.inputs.solution_name }}
