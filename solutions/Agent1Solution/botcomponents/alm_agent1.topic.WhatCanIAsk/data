@@ -1,0 +1,32 @@
+kind: AdaptiveDialog
+beginDialog:
+  kind: OnRecognizedIntent
+  id: main
+  intent:
+    triggerQueries:
+      - what can I ask you
+      - help me with something
+      - give me information
+      - answer my questions
+      - tell me more
+      - what do you know about
+      - can you assist me with something
+      - I need your expertise on something
+      - guide me through this topic
+
+  actions:
+    - kind: SendActivity
+      id: EjyzZQ
+      activity:
+        text:
+          - Here is a sample set of questions that you can ask me about the weather.
+        quickReplies:
+          - kind: MessageBack
+            text: What is the forecast for tomorrow?
+
+          - kind: MessageBack
+            text: What is the current weather?
+
+          - kind: MessageBack
+            title: What is the forecast for today?
+            text: What is the forecast for today?
