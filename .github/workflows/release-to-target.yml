@@ -35,7 +35,7 @@ jobs:
         with:
           lfs: true
 
-      - name: Export solution as managed (NO BUILD ENV)
+      - name: Export solution as managed
         uses: microsoft/powerplatform-actions/export-solution@v0
         with:
           environment-url: ${{ env.POWER_PLATFORM_SOURCE_ENVIRONMENT_URL }}
