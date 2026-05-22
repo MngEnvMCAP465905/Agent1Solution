@@ -11,13 +11,13 @@ This repository uses GitHub Actions and requires configuration of **Secrets** an
 
 Secrets are encrypted values used to securely store sensitive information such as credentials, tokens, and keys. These values are not exposed in logs and are required for secure authentication during workflow execution.
 
-- **CLIENT_ID** (Organization)  
+- **CLIENT_ID** (🏢 Organization)  
   The Application (Client) ID of the Microsoft Entra ID App Registration used for authentication. Identifies the service principal used by workflows.
 
-- **CLIENT_SECRET** (Organization)  
+- **CLIENT_SECRET** (🏢 Organization)  
   The client secret (password) associated with the App Registration. Used to securely authenticate the service principal.
 
-- **TENANT_ID** (Organization)  
+- **TENANT_ID** (🏢 Organization)  
   The Directory (Tenant) ID of the Microsoft Entra ID instance hosting the App Registration. Required for authentication context.
 
 > 🔒 Organizational secrets can be overridden at the repository level when repository-specific values are required.
@@ -26,13 +26,13 @@ Secrets are encrypted values used to securely store sensitive information such a
 
 Variables are non-sensitive configuration values used by workflows. These values are visible in logs and are typically used to define environment-specific settings.
 
-- **DEV_ENVIRONMENT_URL** (Organization)  
+- **DEV_ENVIRONMENT_URL** (🏢 Organization)  
   URL of the development Power Platform environment used for exporting solutions.
 
-- **BUILD_ENVIRONMENT_URL** (Organization)  
+- **BUILD_ENVIRONMENT_URL** (🏢 Organization)  
   URL of the build Power Platform environment used for managed solution conversion.
 
-- **PROD_ENVIRONMENT_URL** (Organization)  
+- **PROD_ENVIRONMENT_URL** (🏢 Organization)  
   URL of the production Power Platform environment used for deployment.
 
 > ⚙️ Organizational variables can be overridden at the repository level when repository-specific values are required.
