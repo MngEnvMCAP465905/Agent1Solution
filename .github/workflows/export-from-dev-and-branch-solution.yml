@@ -22,7 +22,7 @@ permissions:
   contents: write
   
 jobs:
-  export-from-dev:
+  export-from-dev-and-branch-solution:
     runs-on: windows-latest
 
     steps:
