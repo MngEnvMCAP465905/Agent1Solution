@@ -128,7 +128,6 @@ action:
   kind: InvokeConnectorTaskAction
   connectionReference: alm_agent1.connectionreference.cr51e_weatherCopilot.cr.xYOj8vSR
   connectionProperties:
-    name: alm_agent1.connectionreference.cr51e_weatherCopilot.cr.xYOj8vSR
-    mode: Maker
+    mode: Invoker
 
   operationId: TodaysForecast
