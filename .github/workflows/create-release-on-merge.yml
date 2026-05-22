@@ -13,10 +13,10 @@ jobs:
     runs-on: windows-latest
 
     steps:
-      - name: Checkout repo
+      - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Generate timestamp tag
+      - name: Generate tag
         id: tag
         run: |
           TAG="v$(date -u +'%Y.%m.%d.%H.%M')"
@@ -30,7 +30,7 @@ jobs:
           git tag ${{ steps.tag.outputs.tag }}
           git push origin ${{ steps.tag.outputs.tag }}
 
-      - name: Create GitHub Release
+      - name: Create GitHub release
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
