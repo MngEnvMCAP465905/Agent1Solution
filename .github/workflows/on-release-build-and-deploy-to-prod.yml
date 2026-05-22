@@ -1,4 +1,4 @@
-name: deploy-on-release
+name: on-release-build-and-deploy-to-prod
 
 on:
   release:
@@ -8,7 +8,7 @@ permissions:
   contents: write
   
 jobs:
-  deploy-on-release:
+  build-and-deploy-to-prod:
     uses: ./.github/workflows/build-and-deploy-to-prod.yml
     with:
       solution_name: Agent1Solution
