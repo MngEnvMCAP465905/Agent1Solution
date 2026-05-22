@@ -30,6 +30,8 @@ Variables are non-sensitive configuration values used by workflows. These values
 | BUILD_ENVIRONMENT_URL            | URL of the build Power Platform environment used for managed solution conversion. | Organization   |
 | PROD_ENVIRONMENT_URL       | URL of the production Power Platform environment used for deployment.        | Organization   |
 
+> ⚙️ Organizational variables can be overridden at the repository level when repository-specific values are required.
+
 ## Links
 
 - https://learn.microsoft.com/en-us/power-platform/alm/devops-github-actions
