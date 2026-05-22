@@ -7,8 +7,6 @@ This is simple agent to demonstrate deployment better practices using GitHub Act
 
 This repository uses GitHub Actions and requires configuration of **Secrets** and **Variables** to securely authenticate and interact with Power Platform environments.
 
----
-
 ### 🔐 Secrets
 
 Secrets are encrypted values used to securely store sensitive information such as credentials, tokens, and keys. These values are not exposed in logs and are required for secure authentication during workflow execution.
