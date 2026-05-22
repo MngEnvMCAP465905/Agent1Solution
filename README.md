@@ -1,9 +1,9 @@
 # Agent1Solution
 
-## Introduction
+## 📘 Introduction
 This is simple agent to demonstrate deployment better practices using GitHub Actions.
 
-## Configuration
+## ⚙️ Configuration
 
 This repository uses GitHub Actions and requires configuration of **Secrets** and **Variables** to securely authenticate and interact with Power Platform environments.
 
@@ -37,7 +37,7 @@ Variables are non-sensitive configuration values used by workflows. These values
 
 > ⚙️ Organizational variables can be overridden at the repository level when repository-specific values are required.
 
-## Links
+## 🔗 Links
 
 - https://learn.microsoft.com/en-us/power-platform/alm/devops-github-actions
 - https://learn.microsoft.com/en-us/power-platform/alm/devops-github-available-actions
