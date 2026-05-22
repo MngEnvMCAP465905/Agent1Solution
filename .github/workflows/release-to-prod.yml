@@ -24,7 +24,7 @@ jobs:
       uses: microsoft/powerplatform-actions/actions-install@v1
 
     - name: Download the managed solution to the artifact store
-      uses: actions/download-artifact@v2
+      uses: actions/download-artifact@v4
       with:
         name: managedSolutions
         path: out/release/
