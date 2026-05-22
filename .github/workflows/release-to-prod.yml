@@ -37,7 +37,7 @@ jobs:
         tenant-id: ${{ env.TENANT_ID }}
 
     - name: Debug - list files
-      run: dir artifacts
+      run: dir
 
     - name: Import solution to destination environment
       uses: microsoft/powerplatform-actions/import-solution@v1
