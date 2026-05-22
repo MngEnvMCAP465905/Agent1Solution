@@ -1,51 +1,81 @@
-name: release-to-prod
+name: release-to-target
 
 on:
   workflow_dispatch:
     inputs:
-      solution-name:
+      solution_name:
+        description: Solution name to export
         required: true
         default: Agent1Solution
+
+  release:
+    types: [created]
+
+env:
+  SOLUTION_NAME: ${{ inputs.solution_name }}
+  SOLUTION_SHIPPING_FOLDER: 'out/ship/'
+  SOLUTION_RELEASE_FOLDER: 'out/release'
+  POWER_PLATFORM_SOURCE_ENVIRONMENT_URL: ${{ secrets.POWER_PLATFORM_ALM_DEMOS_DEV_ENVIRONMENT_URL }}
+  POWER_PLATFORM_TARGET_ENVIRONMENT_URL: ${{ secrets.POWER_PLATFORM_ALM_DEMOS_DEV_ENVIRONMENT_URL }}
+  AZURE_CLIENT_ID: ${{ secrets.AZURE_ALM_DEMOS_DEV_CLIENT_ID }}
+  AZURE_CLIENT_SECRET: ${{ secrets.AZURE_ALM_DEMOS_DEV_CLIENT_SECRET }}
+  AZURE_TENANT_ID: ${{ secrets.AZURE_ALM_DEMOS_DEV_TENANT_ID }}
+
 permissions:
   contents: write
-  
-jobs:
-  release-to-prod:
-    runs-on: windows-latest
 
+jobs:
+  export-from-source:
+    runs-on: windows-latest
     env:
-      SOLUTION_NAME: ${{ inputs.solution-name }}
-      ENVIRONMENT_URL: ${{ secrets.POWER_PLATFORM_ALM_DEMOS_DEV_ENVIRONMENT_URL }}
-      CLIENT_ID: ${{ secrets.AZURE_ALM_DEMOS_DEV_CLIENT_ID }}
-      CLIENT_SECRET: ${{ secrets.AZURE_ALM_DEMOS_DEV_CLIENT_SECRET }}
-      TENANT_ID: ${{ secrets.AZURE_ALM_DEMOS_DEV_TENANT_ID }}
+      RUNNER_DEBUG: 1
 
     steps:
-    - uses: actions/checkout@v4
-      with:
-        lfs: true
-        
-    - name: Install Power Platform Tools
-      uses: microsoft/powerplatform-actions/actions-install@v1
+      - uses: actions/checkout@v2
+        with:
+          lfs: true
 
-    - name: Validate connection
-      uses: microsoft/powerplatform-actions/who-am-i@v1
-      with:
-        environment-url: ${{ env.ENVIRONMENT_URL }}
-        app-id: ${{ env.CLIENT_ID }}
-        client-secret: ${{ env.CLIENT_SECRET }}
-        tenant-id: ${{ env.TENANT_ID }}
+      - name: Export solution as managed (NO BUILD ENV)
+        uses: microsoft/powerplatform-actions/export-solution@v0
+        with:
+          environment-url: ${{ env.POWER_PLATFORM_SOURCE_ENVIRONMENT_URL }}
+          app-id: ${{ env.AZURE_CLIENT_ID }}
+          client-secret: ${{ secrets.PowerPlatformSPN }}
+          tenant-id: ${{ env.AZURE_TENANT_ID }}
+          solution-name: ${{ github.event.inputs.solution_name }}
+          managed: true
+          solution-output-file: ${{ env.SOLUTION_SHIPPING_FOLDER }}${{ github.event.inputs.solution_name }}.zip
 
-    - name: Debug - list files
-      run: dir
+      - name: Upload managed solution
+        uses: actions/upload-artifact@v2
+        with:
+          name: managedSolutions
+          path: ${{ env.SOLUTION_SHIPPING_FOLDER }}${{ github.event.inputs.solution_name }}.zip
 
-    - name: Import solution to destination environment
-      uses: microsoft/powerplatform-actions/import-solution@v1
-      with:
-        environment-url: ${{ secrets.POWER_PLATFORM_ALM_DEMOS_GITHUB_ENVIRONMENT_URL }}
-        app-id: ${{ secrets.AZURE_ALM_DEMOS_DEV_CLIENT_ID }}
-        client-secret: ${{ secrets.AZURE_ALM_DEMOS_DEV_CLIENT_SECRET }}
-        tenant-id: ${{ secrets.AZURE_ALM_DEMOS_DEV_TENANT_ID }}
-        solution-file: artifacts/${{ inputs.solution-name }}_managed.zip
-        force-overwrite: true
-        publish-changes: true
+  deploy-to-target:
+    needs: [export-from-source]
+    runs-on: windows-latest
+    env:
+      RUNNER_DEBUG: 1
+
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          lfs: true
+
+      - name: Download managed solution
+        uses: actions/download-artifact@v2
+        with:
+          name: managedSolutions
+          path: ${{ env.SOLUTION_RELEASE_FOLDER }}
+
+      - name: Import solution to target env
+        uses: microsoft/powerplatform-actions/import-solution@v0
+        with:
+          environment-url: ${{ env.POWER_PLATFORM_TARGET_ENVIRONMENT_URL }}
+          app-id: ${{ env.AZURE_CLIENT_ID }}
+          client-secret: ${{ env.AZURE_CLIENT_SECRET }}
+          tenant-id: ${{ env.AZURE_TENANT_ID }}
+          solution-file: ${{ env.SOLUTION_RELEASE_FOLDER }}${{ github.event.inputs.solution_name }}.zip
+          force-overwrite: true
+          publish-changes: true
