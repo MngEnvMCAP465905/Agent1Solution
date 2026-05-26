@@ -12,3 +12,7 @@ jobs:
     uses: ./.github/workflows/build-and-deploy-to-prod.yml
     with:
       solution_name: Agent1Solution
+    secrets:
+          CLIENT_ID: ${{ secrets.CLIENT_ID }}
+          CLIENT_SECRET: ${{ secrets.CLIENT_SECRET }}
+          TENANT_ID: ${{ secrets.TENANT_ID }}
