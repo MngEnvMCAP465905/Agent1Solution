@@ -1,4 +1,4 @@
-name: build-and-export-to-prod
+name: build-and-deploy-to-prod
 
 on:
   workflow_call:    
