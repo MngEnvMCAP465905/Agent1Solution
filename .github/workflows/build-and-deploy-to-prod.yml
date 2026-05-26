@@ -6,7 +6,14 @@ on:
       solution_name:
         description: 'name of the solution to worked on from Power Platform'
         type: string
-        default: Agent1Solution   
+        default: Agent1Solution     
+    secrets:
+      CLIENT_ID:
+        required: true
+      CLIENT_SECRET:
+        required: true
+      TENANT_ID:
+        required: true
         
 env:
   BUILD_ENVIRONMENT_URL: ${{ vars.BUILD_ENVIRONMENT_URL }}
@@ -111,7 +118,7 @@ jobs:
       with:
         environment-url: ${{ env.PROD_ENVIRONMENT_URL }}
         app-id: ${{env.CLIENT_ID }}
-        client-secret: ${{ secrets.AZURE_ALM_DEMOS_DEV_CLIENT_SECRET  }}
+        client-secret: ${{ secrets.CLIENT_SECRET }}
         tenant-id: ${{ env.TENANT_ID }}
         solution-file: ${{ env.SOLUTION_RELEASE_FOLDER }}/${{ inputs.solution_name }}_managed.zip
         force-overwrite: true
