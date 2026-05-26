@@ -11,8 +11,6 @@ The goal is to showcase a **repeatable and secure deployment pattern** for:
 
 This aligns with recommended ALM patterns for Power Platform using GitHub Actions.  
 
----
-
 ## 🧭 Solution Overview
 
 This repository implements a simplified ALM pipeline:
@@ -30,9 +28,7 @@ This repository implements a simplified ALM pipeline:
 3. **Deploy**
    - Deploy managed solution to production
 
-These steps align with common Power Platform ALM practices such as exporting from development, generating build artifacts, and releasing to downstream environments. 【1-3d5651】  
-
----
+These steps align with common Power Platform ALM practices such as exporting from development, generating build artifacts, and releasing to downstream environments.
 
 ## ⚙️ Workflows
 
@@ -46,13 +42,9 @@ The repository includes the following GitHub Actions workflows:
 | `on-merge-create-release.yml` | Creates release on merge |
 | `on-release-build-and-deploy-to-prod.yml` | Deploys solution on release |
 
----
-
 ## 🔐 Configuration
 
 This repository uses **GitHub Actions** and requires configuration of **Secrets** and **Variables** to securely authenticate and interact with Power Platform environments.
-
----
 
 ## 🔐 Secrets
 
@@ -70,8 +62,6 @@ These values are used for **service principal authentication**, which is the rec
 
 > 🔒 Organizational secrets can be overridden at the repository level when repository-specific values are required.
 
----
-
 ## ⚙️ Variables
 
 Variables are non-sensitive configuration values used by workflows. These values are visible in logs and are typically used to define environment-specific settings.
@@ -86,8 +76,6 @@ Variables are non-sensitive configuration values used by workflows. These values
 
 > ⚙️ Organizational variables can be overridden at the repository level when repository-specific values are required.
 
----
-
 ## 🔧 Power Platform Actions
 
 This repository uses **GitHub Actions for Microsoft Power Platform**, which provide capabilities such as:
@@ -96,9 +84,7 @@ This repository uses **GitHub Actions for Microsoft Power Platform**, which prov
 - Deploying to downstream environments  
 - Automating the application lifecycle  
 
-These actions enable full CI/CD automation directly from GitHub workflows. 【1-3d5651】  
-
----
+These actions enable full CI/CD automation directly from GitHub workflows. 
 
 ## 🚀 Getting Started
 
@@ -112,8 +98,6 @@ To use this repository:
    - Manual workflow dispatch, or
    - Release workflow
 
----
-
 ## 🔗 References
 
 - [GitHub Actions for Power Platform](https://learn.microsoft.com/en-us/power-platform/alm/devops-github-actions) 【1-3d5651】  
@@ -122,8 +106,6 @@ To use this repository:
 - [Getting Started Tutorial](https://learn.microsoft.com/en-us/power-platform/alm/tutorials/github-actions-start) 【2-bd2005】  
 - [Build Tutorial](https://learn.microsoft.com/en-us/power-platform/alm/tutorials/github-actions-build) 【5-210b83】  
 - [Deploy Tutorial](https://learn.microsoft.com/en-us/power-platform/alm/tutorials/github-actions-deploy) 【6-c3a587】  
-
----
 
 ## 🧠 Notes
 
