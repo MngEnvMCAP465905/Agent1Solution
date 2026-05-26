@@ -58,7 +58,7 @@ Secrets are encrypted values used to securely store sensitive information such a
 | `CLIENT_SECRET` | 🏢 Organization | Client secret associated with the App Registration |
 | `TENANT_ID` | 🏢 Organization | Directory (Tenant) ID of the Microsoft Entra ID |
 
-These values are used for **service principal authentication**, which is the recommended approach for automation scenarios. 【2-bd2005】  
+These values are used for **service principal authentication**, which is the recommended approach for automation scenarios.
 
 > 🔒 Organizational secrets can be overridden at the repository level when repository-specific values are required.
 
