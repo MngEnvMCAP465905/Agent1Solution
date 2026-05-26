@@ -100,12 +100,12 @@ To use this repository:
 
 ## 🔗 References
 
-- [GitHub Actions for Power Platform](https://learn.microsoft.com/en-us/power-platform/alm/devops-github-actions) 【1-3d5651】  
-- [Available Power Platform Actions](https://learn.microsoft.com/en-us/power-platform/alm/devops-github-available-actions) 【3-ee1041】  
-- [Administrative Actions](https://learn.microsoft.com/en-us/power-platform/alm/devops-github-available-administrative-actions) 【4-d42b9a】  
-- [Getting Started Tutorial](https://learn.microsoft.com/en-us/power-platform/alm/tutorials/github-actions-start) 【2-bd2005】  
-- [Build Tutorial](https://learn.microsoft.com/en-us/power-platform/alm/tutorials/github-actions-build) 【5-210b83】  
-- [Deploy Tutorial](https://learn.microsoft.com/en-us/power-platform/alm/tutorials/github-actions-deploy) 【6-c3a587】  
+- [GitHub Actions for Power Platform](https://learn.microsoft.com/en-us/power-platform/alm/devops-github-actions)
+- [Available Power Platform Actions](https://learn.microsoft.com/en-us/power-platform/alm/devops-github-available-actions)
+- [Administrative Actions](https://learn.microsoft.com/en-us/power-platform/alm/devops-github-available-administrative-actions) 
+- [Getting Started Tutorial](https://learn.microsoft.com/en-us/power-platform/alm/tutorials/github-actions-start)  
+- [Build Tutorial](https://learn.microsoft.com/en-us/power-platform/alm/tutorials/github-actions-build)   
+- [Deploy Tutorial](https://learn.microsoft.com/en-us/power-platform/alm/tutorials/github-actions-deploy)  
 
 ## 🧠 Notes
 
@@ -114,5 +114,3 @@ To use this repository:
   - Adding solution validation (`check-solution`)
   - Implementing environment approvals
   - Separating build and deploy workflows for stricter CI/CD controls
-
-``
